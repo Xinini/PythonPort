@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
+import game_bot
 
 #Object for the game/window
 class tictac_win(QMainWindow):
@@ -20,7 +21,6 @@ class tictac_win(QMainWindow):
                       [" ", " ", " "]]
         
         self.label.setText("Player " + str(self.player) + "'s Turn")
-
     def init_win(self):
         self.label = QtWidgets.QLabel(self)
         self.label.setText("Player " + str(self.player) + "'s Turn")
@@ -94,34 +94,29 @@ class tictac_win(QMainWindow):
                 self.player = 1
             self.label.setText("Player " + str(self.player) + "'s Turn")
 
-        self.check_game_state()
+        if self.check_game_state():
+            self.label.setText("Player " + str(self.check_game_state()) + " wins!!!")
+            self.label.adjustSize()
+            self.winner = True
 
     def check_game_state(self):
         for i in self.board: #Horizontal Check
             if i[0] == i[1] == i[2] and i[0] !=" ":
-                self.label.setText("Player " + str(i[0]) + " wins!!!")
-                self.label.adjustSize()
-                self.winner = True
+                return i[0]
         
         for i, r in enumerate(self.board): #Vertical Check
             column = [x[i] for x in self.board]
             if column[0] == column[1] == column[2] and column[0] !=" ":
-                self.label.setText("Player " + str(column[0]) + " wins!!!")
-                self.label.adjustSize()
-                self.winner = True
+                return column[0]
         
         diag1 = [r[i] for i, r in enumerate(self.board)] #Return diagonals
         diag2 = [r[-i-1] for i, r in enumerate(self.board)]
 
         if diag1[0] == diag1[1] == diag1[2] and diag1[0] != " ": #Diagonal check
-            self.label.setText("Player " + str(diag1[0]) + " wins!!!")
-            self.label.adjustSize()
-            self.winner = True
+            return diag1[0]
         if diag2[0] == diag2[1] == diag2[2] and diag2[0] != " ":
-            self.label.setText("Player " + str(diag2[0]) + " wins!!!")
-            self.label.adjustSize()
-            self.winner = True
-
+            return diag2[0]
+        return False
 
     def reset_board(self):
         self.board = [[" ", " ", " "],
