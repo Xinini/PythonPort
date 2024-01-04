@@ -1,30 +1,54 @@
-import main
+import random
+
+def bot_move(board,player,first=True):
+    best_score = -100
+    best_moves = [0,0]
+    for i in range(0,3):
+        for j in range (0,3):
+            if board[i][j] == " ":
+                board[i][j] = player
+                score = minimax(board,0,first)
+                board[i][j] = " "
+                if(score>best_score):
+                    best_score=score
+                    best_moves = [i,j]
+    return best_moves
+
 def minimax(board, depth = 0, is_max = True):
 
     #Terimation Condition
     if check_game_state(board) == 1:
+        print("ey")
         return 1
     elif check_game_state(board) == 2:
+        print("yo")
         return -1
-    elif not check_game_state(board):
+    elif check_game_state(board) == "Full":
+        print("sh")
         return 0
 
     #Max
     if is_max:
         best_score = -100
-        for i in board:
-            for j in board:
-                if board[i][j] != " ":
+        for i in range(0,3):
+            for j in range(0,3):
+                if board[i][j] == " ":
                     board[i][j] = "1"
                     score = minimax(board, depth + 1, is_max = False)
                     board[i][j] = " "
-                    best_score = max((score, best_score))
-                    return best_score
+                    best_score = max(score, best_score)
+        return best_score
+    #Minimizing
     elif not is_max:
         best_score = 100
-        for i in board:
-            for j in board:
-                if board[i][j] != " ":
+        for i in range(0,3):
+            for j in range(0,3):
+                if board[i][j] == " ":
+                    board[i][j] = "2"
+                    score = minimax(board, depth + 1, is_max=True)
+                    board[i][j] = " "
+                    best_score = min(score, best_score)
+        return best_score
 
 
 def check_game_state(board):
@@ -45,8 +69,18 @@ def check_game_state(board):
         if diag2[0] == diag2[1] == diag2[2] and diag2[0] != " ":
             return diag2[0]
         
-        is_full = False
-        for i in board:
-            if not " " in 
 
-        return False
+        #Check if full
+        count = 0
+        for i in board:
+            for j in i:
+                if j == "1" or j == "2":
+                    count += 1
+        if count == 9:
+            return "Full"
+
+
+board = [["1","1"," "],
+         ["2", "2","1"],
+         [" ", " ", "2"]]
+print(bot_move(board,"1"))

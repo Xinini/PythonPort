@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
 import game_bot
 
+import random
 #Object for the game/window
 class tictac_win(QMainWindow):
     def __init__(self):
@@ -70,7 +71,12 @@ class tictac_win(QMainWindow):
 
     def update_board(self, col, row):
         if self.winner is False:
+        
             self.board[col][row] = str(self.player)
+
+            ai_move = game_bot.bot_move(self.board, "2", False)
+            #print(ai_move)
+            self.board[ai_move[0]][ai_move[1]] = "2"
 
             self.b00.setText(self.board[0][0])
             self.b01.setText(self.board[0][1])
@@ -88,10 +94,12 @@ class tictac_win(QMainWindow):
             print(self.board[2])
 
 
-            if self.player == 1: #Change player
-                self.player = 2
-            else:
-                self.player = 1
+            #if self.player == 1: #Change player
+            #    self.player = 2
+            #else:
+            #    self.player = 1
+
+
             self.label.setText("Player " + str(self.player) + "'s Turn")
 
         if self.check_game_state():
