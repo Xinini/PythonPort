@@ -29,7 +29,7 @@ def minimax(board, depth = 0, is_max = True):
 
     #Max
     if is_max:
-        best_score = -100
+        best_score = float("-inf")
         for i in range(0,3):
             for j in range(0,3):
                 if board[i][j] == " ":
@@ -40,7 +40,7 @@ def minimax(board, depth = 0, is_max = True):
         return best_score
     #Minimizing
     elif not is_max:
-        best_score = 100
+        best_score = float("inf")
         for i in range(0,3):
             for j in range(0,3):
                 if board[i][j] == " ":
@@ -77,7 +77,7 @@ def check_game_state(board):
                 if j == "1" or j == "2":
                     count += 1
         if count == 9:
-            print(board)
+            #print(board)
             return "Full"
 
 
