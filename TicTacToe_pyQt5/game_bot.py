@@ -17,10 +17,10 @@ def bot_move(board,player,first=True):
 def minimax(board, depth = 0, is_max = True):
 
     #Terimation Condition
-    if check_game_state(board) == 1:
+    if check_game_state(board) == "1":
         print("ey")
         return 1
-    elif check_game_state(board) == 2:
+    elif check_game_state(board) == "2":
         print("yo")
         return -1
     elif check_game_state(board) == "Full":
@@ -77,10 +77,11 @@ def check_game_state(board):
                 if j == "1" or j == "2":
                     count += 1
         if count == 9:
+            print(board)
             return "Full"
 
 
-board = [["1","1"," "],
-         ["2", "2","1"],
-         [" ", " ", "2"]]
-print(bot_move(board,"1"))
+#board = [["1","1"," "],
+##         ["2", "2","1"],
+ #        [" ", " ", "2"]]
+#print(bot_move(board,"1"))
