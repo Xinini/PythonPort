@@ -4,15 +4,26 @@ import sys
 import game_bot
 
 import random
+
+
+#GLOBAL Constants
+WINDOW_X = 900
+WINDOW_Y = 1000
+WINDOW_START_X = 0
+WINDOW_START_Y = 0
+BUTTON_SIZE = int(WINDOW_X / 3)
+
+
 #Object for the game/window
+
 class tictac_win(QMainWindow):
     def __init__(self):
         super(tictac_win, self).__init__() #Give access to methods from parent
 
-        self.player = 1
+        self.player = "1"
         self.winner = False
 
-        self.setGeometry(200,200,900,1100)
+        self.setGeometry(0,0,WINDOW_X,WINDOW_Y)
         self.setWindowTitle("Lesgo")
 
         self.init_win()
@@ -25,47 +36,47 @@ class tictac_win(QMainWindow):
     def init_win(self):
         self.label = QtWidgets.QLabel(self)
         self.label.setText("Player " + str(self.player) + "'s Turn")
-        self.label.move(450,1000)
+        self.label.move(int(WINDOW_X/2),WINDOW_Y-75)
         self.label.adjustSize()
         
         self.b00 = QtWidgets.QPushButton(self)
-        self.b00.setGeometry(0,0,300,300)
+        self.b00.setGeometry(0,0,BUTTON_SIZE,BUTTON_SIZE)
         self.b00.clicked.connect(lambda: self.update_board(0,0))
 
         self.b01 = QtWidgets.QPushButton(self)
-        self.b01.setGeometry(300,0,300,300)
+        self.b01.setGeometry(BUTTON_SIZE,0,BUTTON_SIZE,BUTTON_SIZE)
         self.b01.clicked.connect(lambda: self.update_board(0,1))
 
         self.b02 = QtWidgets.QPushButton(self)
-        self.b02.setGeometry(600,0,300,300)
+        self.b02.setGeometry(2*BUTTON_SIZE,0,BUTTON_SIZE,BUTTON_SIZE)
         self.b02.clicked.connect(lambda: self.update_board(0,2))
 
         self.b10 = QtWidgets.QPushButton(self)
-        self.b10.setGeometry(0,300,300,300)
+        self.b10.setGeometry(0,BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE)
         self.b10.clicked.connect(lambda: self.update_board(1,0))
 
         self.b11 = QtWidgets.QPushButton(self)
-        self.b11.setGeometry(300,300,300,300)
+        self.b11.setGeometry(BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE)
         self.b11.clicked.connect(lambda: self.update_board(1,1))
 
         self.b12 = QtWidgets.QPushButton(self)
-        self.b12.setGeometry(600,300,300,300)
+        self.b12.setGeometry(2*BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE)
         self.b12.clicked.connect(lambda: self.update_board(1,2))
 
         self.b20 = QtWidgets.QPushButton(self)
-        self.b20.setGeometry(0,600,300,300)
+        self.b20.setGeometry(0,2*BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE)
         self.b20.clicked.connect(lambda: self.update_board(2,0))
 
         self.b21 = QtWidgets.QPushButton(self)
-        self.b21.setGeometry(300,600,300,300)
+        self.b21.setGeometry(BUTTON_SIZE,2*BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE)
         self.b21.clicked.connect(lambda: self.update_board(2,1))
 
         self.b22 = QtWidgets.QPushButton(self)
-        self.b22.setGeometry(600,600,300,300)
+        self.b22.setGeometry(2*BUTTON_SIZE,2*BUTTON_SIZE,BUTTON_SIZE,BUTTON_SIZE)
         self.b22.clicked.connect(lambda: self.update_board(2,2))
 
         self.reset_button = QtWidgets.QPushButton(self)
-        self.reset_button.setGeometry(450,1050, 150,50)
+        self.reset_button.setGeometry(int(WINDOW_X/2),WINDOW_Y-50, 150,50)
         self.reset_button.setText("Reset")
         self.reset_button.clicked.connect(self.reset_board)
 
