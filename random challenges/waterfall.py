@@ -6,6 +6,26 @@ class Solution(object):
         """
 
 
+def test(height): #Idea: have a buffer variabel. After added to the buffer check if there is a right wall. If there is a right wall -> Add to sum
+    #OOO another idea. one more for loop that goes reverse to clear water that is wrong
+    left_wall = 0
+    total_water = 0
+    for i in height:
+        if left_wall < i:
+            left_wall = i
+        elif left_wall > i:
+            total_water -= left_wall - i
+    height.reverse()
+    left_wall = 0
+    for i in height:
+        if left_wall < i:
+            left_wall = i
+        elif left_wall > i:
+            total_water += left_wall - i
+
+    return total_water
+
+print(test([4,2,0,3,2,5]))
 """
 Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
 
